@@ -5,6 +5,8 @@ import { StaticRouter } from 'react-router-dom'
 
 import { Provider } from 'react-redux'
 
+//react-router-config for load data in server
+import { renderRoutes } from 'react-router-config'
 //all routes
 import Routes from '../client/Routes'
 
@@ -12,7 +14,7 @@ export default (req, store) => {
     const context = renderToString(
         <Provider store={store}>
             <StaticRouter location={ req.path } context={{}}>
-                <Routes />
+            <div>{renderRoutes(Routes)}</div>
             </StaticRouter>
         </Provider>
     )
