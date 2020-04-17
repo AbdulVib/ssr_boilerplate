@@ -1,0 +1,51 @@
+port running on 3000
+Hash: 62ebaa4c1d689337a2c4
+Version: webpack 4.42.1
+Time: 206ms
+Built at: 04/17/2020 9:09:52 AM
+    Asset     Size  Chunks             Chunk Names
+bundle.js  979 KiB    main  [emitted]  main
+Entrypoint main = bundle.js
+[./src/client/component/Home.js] 3.09 KiB {main} [built]
+    + 12 hidden modules
+[nodemon] restarting due to changes...
+Hash: 1c24a5432ba4b0adbc67
+Version: webpack 4.42.1
+Time: 267ms
+Built at: 04/17/2020 9:09:52 AM
+    Asset      Size  Chunks             Chunk Names
+bundle.js  1.32 MiB    main  [emitted]  main
+Entrypoint main = bundle.js
+[./src/client/component/Home.js] 3.09 KiB {main} [built]
+    + 143 hidden modules
+
+
+    proporsal
+    =========
+    Hash: c7dc3882540436c02361
+Version: webpack 4.42.1
+Time: 1059ms
+Built at: 04/17/2020 9:17:25 AM
+    Asset      Size  Chunks             Chunk Names
+bundle.js  9.37 KiB    main  [emitted]  main
+Entrypoint main = bundle.js
+[./src/client/component/Home.js] 3.09 KiB {main} [built]
+[./src/index.js] 990 bytes {main} [built]
+[express] external "express" 42 bytes {main} [built]
+[react] external "react" 42 bytes {main} [built]
+[react-dom/server] external "react-dom/server" 42 bytes {main} [built]
+[nodemon] starting `node build/bundle.js`
+port running on 3000
+Hash: 62ebaa4c1d689337a2c4
+Version: webpack 4.42.1
+Time: 2169ms
+Built at: 04/17/2020 9:17:26 AM
+    Asset     Size  Chunks             Chunk Names
+bundle.js  979 KiB    main  [emitted]  main
+Entrypoint main = bundle.js
+[./src/client/client.js] 519 bytes {main} [built]
+[./src/client/component/Home.js] 3.09 KiB {main} [built]
+    + 11 hidden modules
+
+without proporsal
+=================
