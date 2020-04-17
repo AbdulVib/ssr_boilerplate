@@ -118,7 +118,19 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _react = __webpack_require__(/*! react */ \"react\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _server = __webpack_require__(/*! react-dom/server */ \"react-dom/server\");\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"react-router-dom\");\n\nvar _Routes = __webpack_require__(/*! ../client/Routes */ \"./src/client/Routes.js\");\n\nvar _Routes2 = _interopRequireDefault(_Routes);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = function (req) {\n    var context = (0, _server.renderToString)(_react2.default.createElement(\n        _reactRouterDom.StaticRouter,\n        { location: req.path, context: {} },\n        _react2.default.createElement(_Routes2.default, null)\n    ));\n\n    return '\\n        <html>\\n            <head></head>\\n            <body>\\n                <div id=\"root\">' + context + '</div>\\n            </body>\\n            <script src=\"bundle.js\"></script>\\n        </html>\\n    ';\n};\n\n//all routes\n\n//# sourceURL=webpack:///./src/helpers/Renderer.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _react = __webpack_require__(/*! react */ \"react\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _server = __webpack_require__(/*! react-dom/server */ \"react-dom/server\");\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"react-router-dom\");\n\nvar _reactRedux = __webpack_require__(/*! react-redux */ \"react-redux\");\n\nvar _Routes = __webpack_require__(/*! ../client/Routes */ \"./src/client/Routes.js\");\n\nvar _Routes2 = _interopRequireDefault(_Routes);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = function (req, store) {\n    var context = (0, _server.renderToString)(_react2.default.createElement(\n        _reactRedux.Provider,\n        { store: store },\n        _react2.default.createElement(\n            _reactRouterDom.StaticRouter,\n            { location: req.path, context: {} },\n            _react2.default.createElement(_Routes2.default, null)\n        )\n    ));\n\n    return '\\n        <html>\\n            <head></head>\\n            <body>\\n                <div id=\"root\">' + context + '</div>\\n            </body>\\n            <script src=\"bundle.js\"></script>\\n        </html>\\n    ';\n};\n\n//all routes\n\n//# sourceURL=webpack:///./src/helpers/Renderer.js?");
+
+/***/ }),
+
+/***/ "./src/helpers/createStore.js":
+/*!************************************!*\
+  !*** ./src/helpers/createStore.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _redux = __webpack_require__(/*! redux */ \"redux\");\n\nvar _reduxThunk = __webpack_require__(/*! redux-thunk */ \"redux-thunk\");\n\nvar _reduxThunk2 = _interopRequireDefault(_reduxThunk);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n//create store for server\nexports.default = function () {\n    var store = (0, _redux.createStore)(reducers, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default));\n\n    return store;\n};\n\n//# sourceURL=webpack:///./src/helpers/createStore.js?");
 
 /***/ }),
 
@@ -130,7 +142,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nvar _Renderer = __webpack_require__(/*! ./helpers/Renderer */ \"./src/helpers/Renderer.js\");\n\nvar _Renderer2 = _interopRequireDefault(_Renderer);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n// import React from 'react'\n\n// import { renderToString } from 'react-dom/server'\n\n// //screens\n// import Home from './client/component/Home'\n\nvar app = (0, _express2.default)();\n\n//static files\n\n\n//because we r fetching our files from rendrer we dont need our import related to React\napp.use(_express2.default.static('public'));\n\n//routes path\napp.get('*', function (req, res) {\n    res.send((0, _Renderer2.default)(req));\n});\n\napp.listen(3000, function () {\n    console.log('port running on 3000');\n});\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nvar _Renderer = __webpack_require__(/*! ./helpers/Renderer */ \"./src/helpers/Renderer.js\");\n\nvar _Renderer2 = _interopRequireDefault(_Renderer);\n\nvar _createStore = __webpack_require__(/*! ./helpers/createStore */ \"./src/helpers/createStore.js\");\n\nvar _createStore2 = _interopRequireDefault(_createStore);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n//because we r fetching our files from rendrer we dont need our import related to React\nvar app = (0, _express2.default)();\n\n//static files\n\n//stroe\napp.use(_express2.default.static('public'));\n\n//routes path\napp.get('*', function (req, res) {\n\n    var store = (0, _createStore2.default)();\n\n    //some logic to initialize and data to store\n\n    res.send((0, _Renderer2.default)(req, store));\n});\n\napp.listen(3000, function () {\n    console.log('port running on 3000');\n});\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -167,6 +179,17 @@ eval("module.exports = require(\"react-dom/server\");\n\n//# sourceURL=webpack:/
 
 /***/ }),
 
+/***/ "react-redux":
+/*!******************************!*\
+  !*** external "react-redux" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"react-redux\");\n\n//# sourceURL=webpack:///external_%22react-redux%22?");
+
+/***/ }),
+
 /***/ "react-router-dom":
 /*!***********************************!*\
   !*** external "react-router-dom" ***!
@@ -175,6 +198,28 @@ eval("module.exports = require(\"react-dom/server\");\n\n//# sourceURL=webpack:/
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"react-router-dom\");\n\n//# sourceURL=webpack:///external_%22react-router-dom%22?");
+
+/***/ }),
+
+/***/ "redux":
+/*!************************!*\
+  !*** external "redux" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"redux\");\n\n//# sourceURL=webpack:///external_%22redux%22?");
+
+/***/ }),
+
+/***/ "redux-thunk":
+/*!******************************!*\
+  !*** external "redux-thunk" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"redux-thunk\");\n\n//# sourceURL=webpack:///external_%22redux-thunk%22?");
 
 /***/ })
 
