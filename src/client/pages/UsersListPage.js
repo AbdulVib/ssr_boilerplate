@@ -42,6 +42,8 @@ function loadData(store){
     // console.log('hello from home')
 }
 
-export { loadData }
-export default connect(mapStateToProps, { fetchUsers })(UsersList)
+export default{ 
+    loadData,
+    component: connect(mapStateToProps, { fetchUsers })(UsersList)
+}
 // export default connect(mapStateToProps, mapDispatchToProps)(UsersList)

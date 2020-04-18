@@ -8,6 +8,10 @@ import { Provider } from 'react-redux'
 //react-router-config for load data in server
 import { renderRoutes } from 'react-router-config'
 //all routes
+
+//serialixe for xss
+import serialixe from 'serialize-javascript'
+
 import Routes from '../client/Routes'
 
 export default (req, store) => {
@@ -25,6 +29,9 @@ export default (req, store) => {
             <body>
                 <div id="root">${ context }</div>
             </body>
+            <script>
+                window.INITIAL_STATE = ${serialixe(store.getState())}
+            </script>
             <script src="bundle.js"></script>
         </html>
     `

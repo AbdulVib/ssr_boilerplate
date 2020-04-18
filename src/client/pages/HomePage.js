@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Home extends Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {date: new Date(), name: 'Ram'};
@@ -17,4 +17,8 @@ export default class Home extends Component {
             </div>
         )
     }
+}
+
+export default {
+    component: Home
 }
