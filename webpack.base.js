@@ -1,19 +1,15 @@
-//tell webpack to run babel on every file it runs through
 module.exports = {
-    module: {
-        rules: [
-            {
-                test: /\.js?$/,
-                loader: 'babel-loader',
+    devServer: {
+        // historyApiFallback: true,
+        inline: true, // autorfrsh 
+     },
+       module: {
+          rules: [
+             {
+                test: /\.jsx?$/, // srch fr js fls 
                 exclude: /node_modules/,
-                options: {
-                    presets: [
-                        'react',
-                        'stage-0',
-                        ['env', { targets: { browser: ['last 2 versions'] } }]
-                    ]
-                }
+                loader: 'babel-loader'
             }
-        ]
+       ]
     }
 }
